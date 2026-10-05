@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "boxwam"
+version = "1.0.0"
+description = "Box trajectories as compact state representations for world action models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = [
+  "numpy>=1.23",
+  "pillow>=9",
+  "pyyaml>=6",
+  "timm>=1.0.20",
+  "torch>=2.5",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+data = ["h5py>=3.8", "opencv-python>=4.8"]   # scripts/prepare_robotwin_episodes.py, scripts/render_boxes.py
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+include = ["boxwam*"]
+
+[tool.setuptools.package-data]
+boxwam = ["robotwin/*.yml"]
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["multitask/openpi-boxwam", "eval/RoboTwin-boxwam"]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B", "UP"]
+ignore = ["E731", "B008", "B905"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

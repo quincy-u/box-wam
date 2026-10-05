@@ -1,0 +1,34 @@
+# Evaluate a standalone Box-WAM checkpoint in RoboTwin 2.0.
+#
+#   python scripts/evaluate_robotwin.py --config configs/eval/robotwin_boxwam.yaml \
+#       --checkpoint checkpoints/standalone/robotwin/open_laptop.pt --tasks open_laptop --gpus 0
+#
+# RoboTwin runs from eval/RoboTwin-boxwam with the interpreter running this script (the RoboTwin env;
+# see README "Install"). Results land in output_dir (default results/<label>/<task_config>).
+robotwin:
+  root: eval/RoboTwin-boxwam                 # relative paths are relative to this repository
+  # python: ~/miniconda3/envs/RoboTwin/bin/python   # default: the interpreter running this script
+  gpus: [0]
+  timeout_minutes: 240
+  stall_minutes: 10                          # kill and retry a run whose log stops growing (simulator hangs)
+  retries: 2
+  env:                                       # extra environment variables for the RoboTwin process
+    CUROBO_TORCH_COMPILE_DISABLE: "1"
+
+policy: boxwam
+checkpoint: checkpoints/standalone/robotwin/open_laptop.pt   # huggingface-cli download quincyu/box-wam-standalone --local-dir checkpoints/standalone
+# label: open_laptop                         # results folder name; default: the checkpoint's file name
+tasks: [open_laptop]
+task_config: demo_randomized                 # demo_clean (as collected) or demo_randomized (RoboTwin 2.0 hard)
+seeds: [0]
+episodes: 100                                # trials per (task, seed)
+instruction_type: unseen
+num_open_loop_steps: 15                      # execute the whole 15-step chunk before re-planning
+save_boxes: true                             # keep the predicted box trajectories (results/<label>/<task_config>/boxes/)
+render_boxes: true                           # draw them onto the rollout videos (results/<label>/<task_config>/videos/)
+
+boxwam:
+  flow_steps: 50                             # Euler steps of the rectified flow
+  dtype: bfloat16
+  compile: true
+  # cameras: [head_camera]                   # default: the cameras the checkpoint was trained with

@@ -1,0 +1,57 @@
+# Standalone Box-WAM policy for one RoboTwin 2.0 task.
+#
+#   python scripts/train.py --config configs/train/robotwin.yaml --task open_laptop --devices cuda:0
+#
+# --task filters the episode list by substring and appends "-<task>" to run_name. For the dual-object
+# task use --task pick_dual_bottles --set model.box_dim=32 (two box slots).
+run_name: robotwin-boxwam
+
+data:
+  episodes: data/robotwin/episodes.txt      # one episode directory per line (or a root directory)
+  stats: data/robotwin/action_stats.npz     # scripts/compute_action_stats.py --horizon 15 --gripper-dims 6 13
+  cameras: [head_camera]
+  gripper_dims: [6, 13]                     # 14-dim bimanual joints: 6 arm + 1 gripper per arm
+  use_valid_starts: true                    # scripts/filter_static_chunks.py --horizon 15
+  val_fraction: 0.02
+  preload: true
+  num_workers: 8
+  batch_size: 384
+
+augmentation:
+  crop_size: 224
+  crop_scale: [0.875, 1.0]
+  crop_ratio: [1.0, 1.0]
+  rotation_degrees: [-5.0, 5.0]
+  brightness: [0.7, 1.3]
+  contrast: [0.6, 1.4]
+  saturation: [0.5, 1.5]
+  hue: [-0.05, 0.05]
+
+model:
+  state_dim: 14
+  action_dim: 14
+  horizon: 15
+  box_dim: 16                               # one tracked object (8 corners x 2 pixel coordinates)
+  action_attend_box: true                   # actions read the imagined box trajectory ...
+  box_attend_action: false                  # ... but the boxes do not depend on the actions
+  drop_path: 0.1
+  compile: true
+
+loss:
+  action_weight: 2.0
+  box_weight: 1.0
+  val_steps: 10
+
+optim:
+  epochs: 20
+  steps_per_epoch: 300
+  lr: 1.0e-4
+  start_lr: 5.25e-5
+  final_lr: 1.0e-4
+  warmup_epochs: 5
+  weight_decay: 0.04
+  final_weight_decay: 0.04
+
+seed: 239
+dtype: bfloat16
+save_every: 5

@@ -1,0 +1,31 @@
+# PyTorch built for CUDA 12.8, the CUDA compiler that builds pytorch3d and curobo (see README); PyPI's wheels are
+# CUDA 13 builds. 2.11 + cu128 also supports Blackwell GPUs.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+# curobo v0.7.8 calls warp.torch, which warp-lang 1.13 removed; 1.9.x is tested (also on Blackwell GPUs)
+warp-lang<1.10
+torchvision==0.26.0+cu128
+transforms3d==0.4.2
+sapien==3.0.0b1
+scipy==1.10.1
+mplib==0.2.1
+gymnasium==0.29.1
+trimesh==4.4.3
+open3d==0.18.0
+imageio==2.34.2
+pydantic
+zarr
+openai
+huggingface_hub==0.25.0
+h5py
+# For Description Generation
+azure==4.0.0
+azure-ai-inference
+pyglet<2
+wandb
+moviepy
+imageio
+termcolor
+av
+matplotlib
+ffmpeg

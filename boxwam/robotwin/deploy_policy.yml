@@ -1,0 +1,10 @@
+# Base deploy config handed to RoboTwin's script/eval_policy.py. The runner overrides every
+# field below on the command line (--overrides key value ...).
+policy_name: boxwam.robotwin.boxwam_policy
+task_name: null
+task_config: null
+ckpt_setting: null
+seed: 0
+instruction_type: unseen
+test_num: 100
+policy_config: null

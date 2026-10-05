@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.DS_Store
+
+# data, checkpoints and evaluation outputs
+/data/
+/checkpoints/
+/results/
+/renders/
+*.pt
+*.pth
+*.npy
+*.npz
+*.hdf5
+*.mp4
+
+# paper drafts kept next to the code
+*.pdf
