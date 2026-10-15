@@ -7,14 +7,14 @@
 # Box-WAM
 
 [![Website](https://img.shields.io/badge/website-box--wam.github.io-1f6f3d.svg)](https://box-wam.github.io/)
-[![arXiv](https://img.shields.io/badge/arXiv-paper-b31b1b.svg)](https://box-wam.github.io/)
+[![arXiv](https://img.shields.io/badge/arXiv-paper-b31b1b.svg)](https://arxiv.org/abs/2610.17526)
 [![CoRL 2026](https://img.shields.io/badge/CoRL-2026-5b3fa6.svg)](https://www.corl.org/)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
 *Box Trajectories as Compact State Representations for World Action Models* · Qinxi Yu, Wenzhou Ding,
 Gloria X. Wang, Albert J. Zhai, Shenlong Wang · CoRL 2026 ·
-[Project page](https://box-wam.github.io/) · [Paper](https://box-wam.github.io/)
+[Project page](https://box-wam.github.io/) · [Paper](https://arxiv.org/abs/2610.17526)
 
 ## Install
 
